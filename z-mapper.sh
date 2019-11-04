@@ -16,6 +16,8 @@ map_images () {
 		elif (( ${_MAPLOCK} >= 6 )); then
 			wait
 			_MAPLOCK=0
+			map_z_releases &
+                        ((_MAPLOCK++))
 		fi
 	done
 	# Wait for any remaining thread
@@ -142,6 +144,8 @@ do
 	elif (( ${_IMAGELOCK} >= 3 )); then
 		wait
 		_IMAGELOCK=0
+		map_images &
+                ((_IMAGELOCK++))
 	fi
 done
 
