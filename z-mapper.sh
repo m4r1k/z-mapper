@@ -88,6 +88,10 @@ map_z_releases () {
 		_ZRELEASE=Z9
 	elif (( $(date -d "${_CREATED}" +%s) > $(date -d "${_Z9DATE}+7 days" +%s) && $(date -d "${_CREATED}" +%s) < $(date -d "${_Z10DATE}-7 days" +%s) )); then
 		_ZRELEASE=Z9.async
+	elif (( $(date -d "${_CREATED}" +%s) >= $(date -d "${_Z10DATE}-7 days" +%s) && $(date -d "${_CREATED}" +%s) <= $(date -d "${_Z10DATE}+7 days" +%s) )); then
+		_ZRELEASE=Z10
+	elif (( $(date -d "${_CREATED}" +%s) > $(date -d "${_Z10DATE}+7 days" +%s) && $(date -d "${_CREATED}" +%s) < $(date -d "${_Z11DATE}-7 days" +%s) )); then
+		_ZRELEASE=Z10.async
 	fi
 	# Output a CSV named after the Image Name including Image Tag, Create, Batch and Build-date tags and last Z-Release version
 	echo "${_TAG},${_CREATED},${_BATCH},${_BUILDDATE},${_ZRELEASE}" >> ${_OUTPUTFILES}/${_IMAGE}.csv
@@ -116,8 +120,9 @@ _Z6DATE="2019-04-30"
 _Z7DATE="2019-07-10"
 _Z8DATE="2019-09-04"
 _Z9DATE="2019-11-06"
-# Z10 is not out but we need it for the if-conditions, guess a date
-_Z10DATE="2020-02-01" # Fake dates
+_Z10DATE="2019-12-19"
+# Z11 is not out but we need it for the if-conditions
+_Z11DATE="2020-02-01"
 
 # Ensure Docker, skopeo, and JQ are installed
 rpm -q docker >/dev/null 2>&1 || yum install -y docker
