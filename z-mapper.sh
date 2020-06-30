@@ -92,6 +92,14 @@ map_z_releases () {
 		_ZRELEASE=Z10
 	elif (( $(date -d "${_CREATED}" +%s) > $(date -d "${_Z10DATE}+7 days" +%s) && $(date -d "${_CREATED}" +%s) < $(date -d "${_Z11DATE}-7 days" +%s) )); then
 		_ZRELEASE=Z10.async
+	elif (( $(date -d "${_CREATED}" +%s) >= $(date -d "${_Z11DATE}-7 days" +%s) && $(date -d "${_CREATED}" +%s) <= $(date -d "${_Z11DATE}+7 days" +%s) )); then
+		_ZRELEASE=Z11
+	elif (( $(date -d "${_CREATED}" +%s) > $(date -d "${_Z11DATE}+7 days" +%s) && $(date -d "${_CREATED}" +%s) < $(date -d "${_Z12DATE}-7 days" +%s) )); then
+		_ZRELEASE=Z11.async
+	elif (( $(date -d "${_CREATED}" +%s) >= $(date -d "${_Z12DATE}-7 days" +%s) && $(date -d "${_CREATED}" +%s) <= $(date -d "${_Z12DATE}+7 days" +%s) )); then
+		_ZRELEASE=Z12
+	elif (( $(date -d "${_CREATED}" +%s) > $(date -d "${_Z12DATE}+7 days" +%s) && $(date -d "${_CREATED}" +%s) < $(date -d "${_Z13DATE}-7 days" +%s) )); then
+		_ZRELEASE=Z12.async
 	fi
 	# Output a CSV named after the Image Name including Image Tag, Create, Batch and Build-date tags and last Z-Release version
 	echo "${_TAG},${_CREATED},${_BATCH},${_BUILDDATE},${_ZRELEASE}" >> ${_OUTPUTFILES}/${_IMAGE}.csv
@@ -111,7 +119,7 @@ _IMAGES="openstack-nova-compute openstack-aodh-api openstack-nova-libvirt"
 _OUTPUTFILES="./"
 # Release Dates, based on official release notes at https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/13/html/release_notes/index
 _GADATE="2018-06-27"
-_Z1DATE="2018-07-19" 
+_Z1DATE="2018-07-19"
 _Z2DATE="2018-08-29"
 _Z3DATE="2018-11-13"
 _Z4DATE="2019-01-16"
@@ -121,8 +129,10 @@ _Z7DATE="2019-07-10"
 _Z8DATE="2019-09-04"
 _Z9DATE="2019-11-06"
 _Z10DATE="2019-12-19"
-# Z11 is not out but we need it for the if-conditions
-_Z11DATE="2020-02-01"
+_Z11DATE="2020-03-10"
+_Z12DATE="2020-06-24"
+# Z13 is not out but we need it for the if-conditions
+_Z13DATE="2020-07-01"
 
 # Ensure Docker, skopeo, and JQ are installed
 rpm -q docker >/dev/null 2>&1 || yum install -y docker
