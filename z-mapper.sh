@@ -131,8 +131,7 @@ _Z9DATE="2019-11-06"
 _Z10DATE="2019-12-19"
 _Z11DATE="2020-03-10"
 _Z12DATE="2020-06-24"
-# Z13 is not out but we need it for the if-conditions
-_Z13DATE="2020-07-01"
+_Z13DATE="2020-10-28"
 
 # Ensure Docker, skopeo, and JQ are installed
 rpm -q docker >/dev/null 2>&1 || yum install -y docker
